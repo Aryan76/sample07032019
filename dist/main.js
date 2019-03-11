@@ -71,14 +71,21 @@ __webpack_require__(1);
 
 var SDK = __webpack_require__(19);
 var sdk = new SDK();
-sdk.setContent(document.getElementById("editor1").innerHTML);
-	
-var i = 0;
-	
-for (var i in CKEDITOR.instances) {
-        CKEDITOR.instances[i].on('change', function() {alert('value changed!!')});
-    }
-	
+
+function savetext() {
+var html=document.getElementById("editor1").innerHTML;
+sdk.setContent(html);
+sdk.setSuperContent('This is super Content: ' +html); 
+
+sdk.getData(function (data) {
+     var numberOfEdits = data.numberOfEdits || 0;
+     sdk.setData({
+      numberOfEdits: numberOfEdits + 1
+     });
+   });
+   
+   }
+   CKEDITOR.instances.on('text-change', savetext);
 
 
 fetch('/appID').then(function (res) {
