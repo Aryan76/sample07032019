@@ -70,8 +70,8 @@
 __webpack_require__(1);
 
 var SDK = __webpack_require__(19);
-var sdk = new SDK();
-//var sdk = new BlockSDK(['blocktester.herokuapp.com', 'localhost', 'marketingcloudapps.com'], true);
+//var sdk = new SDK();
+var sdk = new BlockSDK(['blocktester.herokuapp.com', 'localhost', 'marketingcloudapps.com'], true);
 //var html=document.getElementById("editor1").innerHTML;
 	sdk.getContent(function (content) 
 		       {
