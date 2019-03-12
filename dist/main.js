@@ -71,22 +71,30 @@ __webpack_require__(1);
 
 var SDK = __webpack_require__(19);
 var sdk = new SDK();
-
-function savetext() {
-var html=document.getElementById("editor1").innerHTML;
-sdk.setContent(html);
-sdk.setSuperContent('This is super Content: ' +html); 
-
-sdk.getData(function (data) {
-     var numberOfEdits = data.numberOfEdits || 0;
-     sdk.setData({
-      numberOfEdits: numberOfEdits + 1
-     });
-   });
-   
-   }
+//var sdk = new BlockSDK(['blocktester.herokuapp.com', 'localhost', 'marketingcloudapps.com'], true);
+//var html=document.getElementById("editor1").innerHTML;
+	sdk.getContent(function (content) 
+		       {
+		CKEDITOR.instances.innerHTML = content;
+		function saveText() {
+			var html = CKEDITOR.instances.innerHTML;
+			sdk.setContent(html);
+			sdk.getData(function (data) {
+				var numberOfEdits = data.numberOfEdits || 0;
+				sdk.setData({
+					numberOfEdits: numberOfEdits + 1
+				});
+			});
+			sdk.getCentralData(function (central) {
+				var totalNumberOfEdits = central.totalNumberOfEdits || 0;
+				sdk.setCentralData({
+					totalNumberOfEdits: totalNumberOfEdits + 1
+				});
+			});
+		}
+		
    CKEDITOR.instances.on('text-change', savetext);
-
+	}
 
 fetch('/appID').then(function (res) {
 	return res.text();
