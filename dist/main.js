@@ -93,7 +93,7 @@ var sdk = new SDK();
 			});
 		}
 		
-   CKEDITOR.instances.on('text-change', savetext);
+   CKEDITOR.instances.on('text-change', saveText);
 	}
 
 fetch('/appID').then(function (res) {
